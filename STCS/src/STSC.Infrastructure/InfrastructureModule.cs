@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using STSC.Infrastructure.DbContexts;
 
 public class InfrastructureModule : Module
 {
@@ -13,6 +14,11 @@ public class InfrastructureModule : Module
 
     protected override void Load(ContainerBuilder builder)
     {
+        builder.RegisterType<ApplicationDbContext>().As<IApplicationDbContext>()
+                .WithParameter("connectionString", _connectionString)
+                .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
         base.Load(builder);
     }
 }

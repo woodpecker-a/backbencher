@@ -6,6 +6,12 @@ using Serilog;
 using Serilog.Events;
 using STCS.Web.Data;
 using System.Reflection;
+using STSC.Infrastructure.Entities.Applications;
+using STSC.Infrastructure.Services.Applications;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,9 +38,62 @@ try
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, m => m.MigrationsAssembly(assemblyName)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+    builder.Services
+    .AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddUserManager<ApplicationUserManager>()
+    .AddRoleManager<ApplicationRoleManager>()
+    .AddSignInManager<ApplicationSignInManager>()
+    .AddDefaultTokenProviders();
+
+    builder.Services.AddAuthentication()
+        .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+        {
+            options.LoginPath = new PathString("/Home/Index");
+            options.AccessDeniedPath = new PathString("/Account/Login");
+            options.LogoutPath = new PathString("/Account/Logout");
+            options.Cookie.Name = "FirstDemoPortal.Identity";
+            options.SlidingExpiration = true;
+            options.ExpireTimeSpan = TimeSpan.FromHours(1);
+        })
+        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, x =>
+        {
+            x.RequireHttpsMetadata = false;
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"])),
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+            };
+        });
+
+    builder.Services.Configure<IdentityOptions>(options =>
+    {
+        // Password settings.
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequiredUniqueChars = 0;
+
+        // Lockout settings.
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = true;
+
+        // User settings.
+        options.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+        options.User.RequireUniqueEmail = true;
+    });
+
     builder.Services.AddControllersWithViews();
 
     var app = builder.Build();
@@ -69,9 +128,9 @@ try
 
 catch(Exception ex)
 {
-    
+    Log.Fatal(ex, "Application start-up failed");
 }
 finally
 {
-    
+    Log.CloseAndFlush();
 }
