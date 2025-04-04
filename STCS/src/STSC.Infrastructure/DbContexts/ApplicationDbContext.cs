@@ -8,12 +8,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>, IApplicationDbContext
 {
     private readonly string _connectionString;
-    private readonly string _migrationAssemblyName;
+    private readonly string _assemblyName;
 
-    public ApplicationDbContext(string connectionString, string migrationAssemblyName)
+    public ApplicationDbContext(string connectionString, string assemblyName)
     {
         _connectionString = connectionString;
-        _migrationAssemblyName = migrationAssemblyName;
+        _assemblyName = assemblyName;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,7 +21,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSqlServer(_connectionString,
-                b => b.MigrationsAssembly(_migrationAssemblyName)
+                b => b.MigrationsAssembly(_assemblyName)
             );
         }
 

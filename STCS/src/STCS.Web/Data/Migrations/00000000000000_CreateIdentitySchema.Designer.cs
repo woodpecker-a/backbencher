@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STCS.Web.Data;
+using STSC.Infrastructure.DbContexts;
 
 namespace STCS.Web.Data.Migrations
 {

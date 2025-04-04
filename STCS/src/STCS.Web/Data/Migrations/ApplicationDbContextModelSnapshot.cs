@@ -3,8 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using STCS.Web.Data;
+using STSC.Infrastructure.DbContexts;
 
 namespace STCS.Web.Data.Migrations
 {
