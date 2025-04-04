@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using STSC.Infrastructure.DbContexts;
+using STSC.Infrastructure.Services.Utilities;
 using STSC.Infrastructure.UnitOfWorks;
 
-namespace Infrastructure;
+namespace STSC.Infrastructure;
 
 public class InfrastructureModule : Module
 {
@@ -29,6 +30,15 @@ public class InfrastructureModule : Module
 
         builder.RegisterType<ApplicationUnitOfWork>().As<IApplicationUnitOfWork>()
                 .InstancePerLifetimeScope();
+
+        builder.RegisterType<TimeService>().As<ITimeService>()
+                .InstancePerLifetimeScope();
+
+        builder.RegisterType<DataUtility>().As<IDataUtility>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<TokenService>().As<ITokenService>()
+            .InstancePerLifetimeScope();
 
         base.Load(builder);
     }

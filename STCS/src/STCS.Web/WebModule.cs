@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Web;
+namespace STCS.Web;
 
 public class WebModule : Module
 {
