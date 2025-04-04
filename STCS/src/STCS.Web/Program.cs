@@ -1,10 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
 using STCS.Infrastructure;
@@ -13,7 +10,6 @@ using STCS.Infrastructure.Entities.Applications;
 using STCS.Infrastructure.Services.Applications;
 using STCS.Web;
 using System.Reflection;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +35,7 @@ try
         options.UseSqlServer(connectionString, m => m.MigrationsAssembly(assemblyName)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+    // Existing code
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddControllersWithViews();
 
