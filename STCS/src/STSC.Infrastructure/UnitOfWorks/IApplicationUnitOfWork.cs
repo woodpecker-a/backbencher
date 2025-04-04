@@ -1,4 +1,4 @@
-﻿namespace STSC.Infrastructure.UnitOfWorks;
+﻿namespace STCS.Infrastructure.UnitOfWorks;
 
 public interface IApplicationUnitOfWork : IUnitOfWork
 {

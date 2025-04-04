@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace STSC.Infrastructure.Services.Utilities;
+namespace STCS.Infrastructure.Services.Utilities;
 
 public interface ITokenService
 {

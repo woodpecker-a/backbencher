@@ -1,7 +1,7 @@
-﻿using STSC.Infrastructure.Entities;
+﻿using STCS.Infrastructure.Entities;
 using System.Linq.Expressions;
 
-namespace STSC.Infrastructure.Repositories
+namespace STCS.Infrastructure.Repositories
 {
     public interface IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
     {

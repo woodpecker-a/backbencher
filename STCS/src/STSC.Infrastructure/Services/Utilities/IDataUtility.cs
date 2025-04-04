@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace STSC.Infrastructure.Services.Utilities;
+namespace STCS.Infrastructure.Services.Utilities;
 
 public interface IDataUtility
 {

@@ -1,4 +1,4 @@
-﻿namespace STSC.Infrastructure.Entities;
+﻿namespace STCS.Infrastructure.Entities;
 
 public interface IEntity<T>
 {

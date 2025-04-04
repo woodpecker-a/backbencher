@@ -1,4 +1,4 @@
-﻿namespace STSC.Infrastructure.Services.Utilities;
+﻿namespace STCS.Infrastructure.Services.Utilities;
 
 public class TimeService : ITimeService
 {

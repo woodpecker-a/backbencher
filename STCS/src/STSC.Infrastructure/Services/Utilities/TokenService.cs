@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace STSC.Infrastructure.Services.Utilities;
+namespace STCS.Infrastructure.Services.Utilities;
 
 public class TokenService : ITokenService
 {

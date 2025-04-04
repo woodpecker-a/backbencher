@@ -341,7 +341,7 @@
     }();
     var Transport = function() {
         "use strict";
-        var pendingRequestsCount = 0, pendingRequests = {}, maxPendingRequests = 6, sharedCache = new LruCache(10);
+        var pendingRequeSTCSount = 0, pendingRequests = {}, maxPendingRequests = 6, sharedCache = new LruCache(10);
         function Transport(o) {
             o = o || {};
             this.cancelled = false;
@@ -369,8 +369,8 @@
                 }
                 if (jqXhr = pendingRequests[fingerprint]) {
                     jqXhr.done(done).fail(fail);
-                } else if (pendingRequestsCount < maxPendingRequests) {
-                    pendingRequestsCount++;
+                } else if (pendingRequeSTCSount < maxPendingRequests) {
+                    pendingRequeSTCSount++;
                     pendingRequests[fingerprint] = this._send(o).done(done).fail(fail).always(always);
                 } else {
                     this.onDeckRequestArgs = [].slice.call(arguments, 0);
@@ -383,7 +383,7 @@
                     cb(true);
                 }
                 function always() {
-                    pendingRequestsCount--;
+                    pendingRequeSTCSount--;
                     delete pendingRequests[fingerprint];
                     if (that.onDeckRequestArgs) {
                         that._get.apply(that, that.onDeckRequestArgs);

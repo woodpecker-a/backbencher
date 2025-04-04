@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using STSC.Infrastructure.Entities.Applications;
+using STCS.Infrastructure.Entities.Applications;
 
-namespace STSC.Infrastructure.DbContexts;
+namespace STCS.Infrastructure.DbContexts;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
     ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>, IApplicationDbContext

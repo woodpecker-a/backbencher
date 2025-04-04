@@ -22,7 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\STSC.Infrastructure\STSC.Infrastructure.csproj" />
+    <ProjectReference Include="..\STSC.Infrastructure\STCS.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\" />
   </ItemGroup>
 
 </Project>

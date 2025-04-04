@@ -2679,7 +2679,7 @@
   reference element's position.
   */
 
-  function listScrollParents(element, list) {
+  function liSTCSrollParents(element, list) {
     var _element$ownerDocumen;
 
     if (list === void 0) {
@@ -2692,7 +2692,7 @@
     var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
     var updatedList = list.concat(target);
     return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
-    updatedList.concat(listScrollParents(getParentNode(target)));
+    updatedList.concat(liSTCSrollParents(getParentNode(target)));
   }
 
   function rectToClientRect(rect) {
@@ -2725,7 +2725,7 @@
 
 
   function getClippingParents(element) {
-    var clippingParents = listScrollParents(getParentNode(element));
+    var clippingParents = liSTCSrollParents(getParentNode(element));
     var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle$1(element).position) >= 0;
     var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
 
@@ -3505,8 +3505,8 @@
           cleanupModifierEffects();
           state.options = Object.assign({}, defaultOptions, state.options, options);
           state.scrollParents = {
-            reference: isElement(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
-            popper: listScrollParents(popper)
+            reference: isElement(reference) ? liSTCSrollParents(reference) : reference.contextElement ? liSTCSrollParents(reference.contextElement) : [],
+            popper: liSTCSrollParents(popper)
           }; // Orders the modifiers based on their dependencies and `phase`
           // properties
 

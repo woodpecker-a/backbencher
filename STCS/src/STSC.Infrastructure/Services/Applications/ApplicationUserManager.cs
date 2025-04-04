@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using STSC.Infrastructure.Entities.Applications;
+using STCS.Infrastructure.Entities.Applications;
 
-namespace STSC.Infrastructure.Services.Applications;
+namespace STCS.Infrastructure.Services.Applications;
 
 public class ApplicationUserManager
     : UserManager<ApplicationUser>

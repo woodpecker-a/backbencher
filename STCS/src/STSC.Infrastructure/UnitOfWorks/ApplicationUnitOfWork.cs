@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using STSC.Infrastructure.DbContexts;
+using STCS.Infrastructure.DbContexts;
 
-namespace STSC.Infrastructure.UnitOfWorks;
+namespace STCS.Infrastructure.UnitOfWorks;
 
 public class ApplicationUnitOfWork : UnitOfWork, IApplicationUnitOfWork
 {

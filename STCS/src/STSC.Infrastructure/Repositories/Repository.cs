@@ -1,13 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using STCS.Infrastructure.Entities;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlTypes;
-using System.Data;
-using System.Linq.Expressions;
-using STSC.Infrastructure.Entities;
 using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 
-namespace STSC.Infrastructure.Repositories;
+namespace STCS.Infrastructure.Repositories;
 
 public abstract class Repository<TEntity, TKey>
         : IRepository<TEntity, TKey>

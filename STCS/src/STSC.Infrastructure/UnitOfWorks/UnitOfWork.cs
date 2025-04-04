@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace STSC.Infrastructure.UnitOfWorks;
+namespace STCS.Infrastructure.UnitOfWorks;
 
 public abstract class UnitOfWork : IUnitOfWork
 {

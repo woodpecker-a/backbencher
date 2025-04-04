@@ -1,4 +1,4 @@
-﻿namespace STSC.Infrastructure.DbContexts;
+﻿namespace STCS.Infrastructure.DbContexts;
 
 public interface IApplicationDbContext
 {

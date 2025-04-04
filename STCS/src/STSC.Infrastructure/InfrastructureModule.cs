@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using STSC.Infrastructure.DbContexts;
-using STSC.Infrastructure.Services.Utilities;
-using STSC.Infrastructure.UnitOfWorks;
+using STCS.Infrastructure.DbContexts;
+using STCS.Infrastructure.Services.Utilities;
+using STCS.Infrastructure.UnitOfWorks;
 
-namespace STSC.Infrastructure;
+namespace STCS.Infrastructure;
 
 public class InfrastructureModule : Module
 {

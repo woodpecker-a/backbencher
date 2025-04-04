@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
-namespace STSC.Infrastructure.Services.Utilities;
+namespace STCS.Infrastructure.Services.Utilities;
 
 public class DataUtility : IDataUtility
 {
