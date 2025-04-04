@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using STSC.Infrastructure.DbContexts;
+using STSC.Infrastructure.UnitOfWorks;
 
 namespace Infrastructure;
 
@@ -24,6 +25,9 @@ public class InfrastructureModule : Module
         builder.RegisterType<ApplicationDbContext>().As<IApplicationDbContext>()
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("assemblyName", _assemblyName)
+                .InstancePerLifetimeScope();
+
+        builder.RegisterType<ApplicationUnitOfWork>().As<IApplicationUnitOfWork>()
                 .InstancePerLifetimeScope();
 
         base.Load(builder);
