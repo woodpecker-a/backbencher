@@ -31,25 +31,51 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Course-Instructor Relationship (One-to-Many, each course has OIC, JIC, and NIC)
         modelBuilder.Entity<Course>()
-            .HasMany(s => s.Students)
-            .WithOne(c => c.EnrolledCourse)
-            .HasForeignKey(c => c.EnrolledCourse);
+            .HasOne(c => c.OIC)
+            .WithMany()
+            .HasForeignKey(c => c.OICId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Course>()
-            .HasOne(i => i.OIC)
+            .HasOne(c => c.JIC)
             .WithMany()
-            .HasForeignKey(i => i.OICId);
-        
+            .HasForeignKey(c => c.JICId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         modelBuilder.Entity<Course>()
-            .HasOne(i => i.JIC)
+            .HasOne(c => c.NIC)
             .WithMany()
-            .HasForeignKey(i => i.JICId);
-        
-        modelBuilder.Entity<Course>()
-            .HasOne(i => i.NIC)
-            .WithMany()
-            .HasForeignKey(i => i.NICId);
+            .HasForeignKey(c => c.NICId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Course-Student Relationship (Many-to-One)
+        modelBuilder.Entity<Student>()
+            .HasOne(s => s.EnrolledCourse)
+            .WithMany(c => c.Students)
+            .HasForeignKey(s => s.CourseId)
+            .OnDelete(DeleteBehavior.Cascade); // Cascade delete if a course is deleted
+
+        // Class-course Relationship (One-to-Many)
+        modelBuilder.Entity<Class>()
+            .HasOne(c => c.Course)
+            .WithMany(cl => cl.Classes)
+            .HasForeignKey(cl => cl.CourseId);
+
+        // Subject-ClassFile Relationship (One-to-Many)
+        modelBuilder.Entity<Subject>()
+            .HasMany(s => s.Files)
+            .WithOne(cf => cf.Subject)
+            .HasForeignKey(cf => cf.SubjectId)
+            .OnDelete(DeleteBehavior.Cascade); // Cascade delete if a subject is deleted
+
+        // Instructor-Course Relationship (One-to-Many)
+        modelBuilder.Entity<Instructor>()
+            .HasOne(i => i.Course)
+            .WithMany(c => c.Instructors)
+            .HasForeignKey(i => i.CourseId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);
     }
