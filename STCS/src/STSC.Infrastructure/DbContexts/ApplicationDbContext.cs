@@ -17,18 +17,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         _assemblyName = assemblyName;
     }
 
-    public DbSet<Course> Courses;
-
-    public DbSet<Instructor> Instructors;
-
-    public DbSet<Student> Students;
-
-    public DbSet<Subject> Subjects;
-
-    public DbSet<Class> Classes;
-
-    public DbSet<ClassFile> Files;
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -46,8 +34,35 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         modelBuilder.Entity<Course>()
             .HasMany(s => s.Students)
             .WithOne(c => c.EnrolledCourse)
-            .HasForeignKey(c => c.Id);
+            .HasForeignKey(c => c.EnrolledCourse);
+
+        modelBuilder.Entity<Course>()
+            .HasOne(i => i.OIC)
+            .WithMany()
+            .HasForeignKey(i => i.OICId);
+        
+        modelBuilder.Entity<Course>()
+            .HasOne(i => i.JIC)
+            .WithMany()
+            .HasForeignKey(i => i.JICId);
+        
+        modelBuilder.Entity<Course>()
+            .HasOne(i => i.NIC)
+            .WithMany()
+            .HasForeignKey(i => i.NICId);
 
         base.OnModelCreating(modelBuilder);
     }
+
+    public DbSet<Course> Courses { get; set; }
+
+    public DbSet<Instructor> Instructors { get; set; }
+
+    public DbSet<Student> Students { get; set; }
+
+    public DbSet<Subject> Subjects { get; set; }
+
+    public DbSet<Class> Classes { get; set; }
+
+    public DbSet<ClassFile> Files { get; set; }
 }
