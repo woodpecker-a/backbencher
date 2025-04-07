@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using STCS.Infrastructure.Entities;
 using STCS.Infrastructure.Entities.Applications;
 
 namespace STCS.Infrastructure.DbContexts;
@@ -16,6 +17,18 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         _assemblyName = assemblyName;
     }
 
+    public DbSet<Course> Courses;
+
+    public DbSet<Instructor> Instructors;
+
+    public DbSet<Student> Students;
+
+    public DbSet<Subject> Subjects;
+
+    public DbSet<Class> Classes;
+
+    public DbSet<ClassFile> Files;
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -30,6 +43,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Course>()
+            .HasMany(s => s.Students)
+            .WithOne(c => c.EnrolledCourse)
+            .HasForeignKey(c => c.Id);
+
         base.OnModelCreating(modelBuilder);
     }
 }
