@@ -290,7 +290,7 @@
                 hollow: {
                     margin: 15,
                     size: '70%',
-                    image: '../assets/images/email-template/success.png',
+                    image: '../theme/assets/images/email-template/success.png',
                     imageWidth: 64,
                     imageHeight: 64,
                     imageClipped: false
@@ -312,7 +312,7 @@
         fill: {
             type: 'image',
             image: {
-                src: ['../assets/images/user-card/5.jpg'],
+                src: ['../theme/assets/images/user-card/5.jpg'],
             }
         },
         stroke: {

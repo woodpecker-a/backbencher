@@ -10,7 +10,7 @@ function submitBookMark() {
 	$('#index_var').val(parseInt(index_var)+6);
 
 		var bmColData = '<div class="col-xl-3 col-md-4 xl-50">\
-	      <div class="card card-with-border bookmark-card o-hidden"><div class="details-website"><img class="img-fluid" src="../assets/images/lightgallry/07.jpg" alt="" data-original-title="" title="">\
+	      <div class="card card-with-border bookmark-card o-hidden"><div class="details-website"><img class="img-fluid" src="../theme/assets/images/lightgallry/07.jpg" alt="" data-original-title="" title="">\
 	        <div class="favourite-icon favourite_'+index_var+'"><a href="javascript:void(0)" onclick="setFavourite('+index_var+')" data-original-title="" title=""><i class="fa fa-star"></i></a></div>\
 	        <div class="desciption-data">\
 		        <div class="title-bookmark">\
@@ -97,7 +97,7 @@ function setFavourite(index_var){
 		fav_arr.push(index_var);
 	
 		var bmColData = '<div class="col-xl-3 col-md-4 xl-50 favourite_card_'+index_var+'">\
-	      <div class="card card-with-border bookmark-card o-hidden"><div class="details-website"><img class="img-fluid" src="../assets/images/lightgallry/07.jpg" alt="" data-original-title="" title="">\
+	      <div class="card card-with-border bookmark-card o-hidden"><div class="details-website"><img class="img-fluid" src="../theme/assets/images/lightgallry/07.jpg" alt="" data-original-title="" title="">\
 	        <div class="favourite-icon favourite" ><a href="javascript:void(0)" class="favourite_'+index_var+'" onclick="setFavourite('+index_var+')" data-original-title="" title=""><i class="fa fa-star"></i></a></div>\
 	        <div class="desciption-data">\
 		        <div class="title-bookmark">\

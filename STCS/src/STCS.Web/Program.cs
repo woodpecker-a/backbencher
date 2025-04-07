@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,7 @@ try
     // Existing code
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddControllersWithViews();
+    builder.Services.AddSession();
 
     builder.Services
     .AddIdentity<ApplicationUser, ApplicationRole>()
@@ -67,6 +69,7 @@ try
     app.UseStaticFiles();
 
     app.UseRouting();
+
 
     app.UseAuthentication();
     app.UseAuthorization();

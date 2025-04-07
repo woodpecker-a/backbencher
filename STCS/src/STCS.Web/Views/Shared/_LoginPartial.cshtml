@@ -3,25 +3,30 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+    @* <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
             <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
         </form>
+    </li> *@
+    <li class="onhover-dropdown">
+        <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button class="btn btn-primary-light" type="button"><i data-feather="log-out"></i>Log out</button>
+        </form>
     </li>
 }
 else
 {
-    <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+    <li class="onhover-dropdown">
+        <button class="btn btn-primary-light btn-sm" type="button"><a asp-area="" asp-controller="Account" asp-action="Register"><i data-feather="log-in"></i>Register</a></button>
     </li>
-    <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+
+    <li class="onhover-dropdown">
+        <button class="btn btn-primary-light btn-sm" type="button"><a asp-area="" asp-controller="Account" asp-action="Login"><i data-feather="log-in"></i>Log in</a></button>
     </li>
 }
-</ul>

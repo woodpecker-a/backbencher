@@ -219,7 +219,10 @@ $("#left-arrow").click(function () {
                 return false;
             }
         }
-    });
-    $('.custom-scrollbar').animate({
-        scrollTop: $('a.nav-link.menu-title.active').offset().top - 500
-    }, 1000);
+        });
+    const activeLink = $('a.nav-link.menu-title.active');
+    if (activeLink.length) {
+        $('.custom-scrollbar').animate({
+            scrollTop: activeLink.offset().top - 500
+        }, 1000);
+    }

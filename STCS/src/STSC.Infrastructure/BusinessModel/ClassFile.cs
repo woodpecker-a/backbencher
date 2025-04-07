@@ -1,6 +1,6 @@
-﻿namespace STCS.Infrastructure.Entities;
+﻿namespace STCS.Infrastructure.BusinessModel;
 
-public class ClassFile : IEntity<Guid>
+public class ClassFile
 {
     public Guid Id { get; set; }
     public string FileName { get; set; }

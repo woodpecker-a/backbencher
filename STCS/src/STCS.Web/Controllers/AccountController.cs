@@ -114,9 +114,9 @@ public class AccountController : Controller
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                var claims = (await _userManager.GetClaimsAsync(user)).ToArray();
-                var token = await _tokenService.GetJwtToken(claims);
-                HttpContext.Session.SetString("token", token);
+                //var claims = (await _userManager.GetClaimsAsync(user)).ToArray();
+                //var token = await _tokenService.GetJwtToken(claims);
+                //HttpContext.Session.SetString("token", token);
 
                 return LocalRedirect(model.ReturnUrl);
             }
