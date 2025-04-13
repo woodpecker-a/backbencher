@@ -13,6 +13,9 @@ using STCS.Web;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+//!@asdf567A
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var assemblyName = Assembly.GetExecutingAssembly().FullName;
@@ -61,7 +64,6 @@ try
     else
     {
         app.UseExceptionHandler("/Home/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
     }
 
@@ -82,7 +84,7 @@ try
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    app.Run();
+    app.Run($"http://0.0.0.0:{port}");
 }
 
 catch (Exception ex)
