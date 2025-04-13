@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using STCS.Infrastructure.DbContexts;
+using STCS.Infrastructure.Repositories;
+using STCS.Infrastructure.Services;
 using STCS.Infrastructure.Services.Utilities;
 using STCS.Infrastructure.UnitOfWorks;
 
@@ -38,6 +40,12 @@ public class InfrastructureModule : Module
             .InstancePerLifetimeScope();
 
         builder.RegisterType<TokenService>().As<ITokenService>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<CourseRepository>().As<ICourseRepository>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<CourseService>().As<ICourseService>()
             .InstancePerLifetimeScope();
 
         base.Load(builder);

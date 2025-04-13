@@ -15,7 +15,10 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 //!@asdf567A
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+//var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+//var port = Environment.GetEnvironmentVariable("PORT") ?? "5113";
+//builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var assemblyName = Assembly.GetExecutingAssembly().FullName;
@@ -84,7 +87,8 @@ try
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    app.Run($"http://0.0.0.0:{port}");
+    //app.Run($"http://0.0.0.0:{port}");
+    app.Run();
 }
 
 catch (Exception ex)
