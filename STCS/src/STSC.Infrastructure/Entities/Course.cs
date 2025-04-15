@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 
 namespace STCS.Infrastructure.Entities;
 
@@ -9,6 +8,8 @@ public class Course : IEntity<Guid>
     [Required]
     public string CourseName { get; set; }
     public string CourseCode { get; set; }
+    public DateTime CourseStartDate { get; set; }
+    public int CourseDuration { get; set; }
     public Guid OICId { get; set; }
     public Instructor OIC { get; set; }
     public Guid JICId { get; set; }
