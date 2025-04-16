@@ -65,13 +65,11 @@ public class CourseService : ICourseService
         return courseBO;
     }
 
-    public async Task<(int total, int totalDisplay, IList<CourseBO> records)> GetCoursesAdvanced(int pageIndex,
-            int pageSize, string title, DateTime classStartDateFrom,
-            DateTime classStartDateTo, string orderby)
+    public (int total, int totalDisplay, IList<CourseBO> records) GetCourses(int pageIndex,
+            int pageSize, string searchText, string orderby)
     {
-        (IList<CourseEO> data, int total, int totalDisplay) results = await _applicationUnitOfWork
-            .Courses.GetCoursesWithAdvanceSearch(pageIndex, pageSize, title, classStartDateFrom,
-            classStartDateTo, orderby);
+        (IList<CourseEO> data, int total, int totalDisplay) results = _applicationUnitOfWork
+            .Courses.GetCourses(pageIndex, pageSize, searchText, orderby);
 
         IList<CourseBO> courses = new List<CourseBO>();
         foreach (CourseEO courseEO in results.data)
@@ -80,15 +78,6 @@ public class CourseService : ICourseService
         }
 
         return (results.total, results.totalDisplay, courses);
-    }
-
-    public CourseBO GetCourses(Guid id)
-    {
-        var courseEO = _applicationUnitOfWork.Courses.GetById(id);
-
-        CourseBO courseBO = _mapper.Map<CourseBO>(courseEO);
-
-        return courseBO;
     }
 
     public IList<CourseBO> GetCourses()
