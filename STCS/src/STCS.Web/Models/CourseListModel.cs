@@ -1,38 +1,33 @@
-﻿using Autofac;
-using STCS.Infrastructure.Models;
+﻿using STCS.Infrastructure.Models;
 using STCS.Infrastructure.Services;
 
 namespace STCS.Web.Models;
 
 public class CourseListModel : BaseModel
 {
-    private ICourseService? _courseService;
+    private readonly ICourseService _courseService;
 
-    public CourseListModel(ICourseService coursService)
+    // Constructor injection works fine, no need to manually resolve it again
+    public CourseListModel(ICourseService courseService)
     {
-        _courseService = coursService;
-    }
-
-    public override void ResolveDependency(ILifetimeScope scope)
-    {
-        base.ResolveDependency(scope);
-        _courseService = _scope.Resolve<ICourseService>();
+        _courseService = courseService ?? throw new ArgumentNullException(nameof(courseService));
     }
 
     internal void DeleteCourse(Guid id)
     {
-        _courseService?.DeleteCourse(id);
+        _courseService.DeleteCourse(id);
     }
 
     internal Task<object> GetAllCourse(DataTablesAjaxRequestModel requestModel)
     {
         var data = _courseService.GetCourses(
-        requestModel.PageIndex,
-        requestModel.PageSize,
-        requestModel.SearchText,
-        requestModel.GetSortText(new string[] { "CourseName", "CourseCode", "CourseStartDate", "OIC", "JIC" }));
+            requestModel.PageIndex,
+            requestModel.PageSize,
+            requestModel.SearchText,
+            requestModel.GetSortText(new[] { "CourseName", "CourseCode", "CourseStartDate", "OIC", "JIC" })
+        );
 
-        return new
+        var result = new
         {
             recordsTotal = data.total,
             recordsFiltered = data.totalDisplay,
@@ -43,7 +38,12 @@ public class CourseListModel : BaseModel
                 record.CourseStartDate.ToLongDateString(),
                 record.OIC.FirstName,
                 record.JIC.FirstName,
-                record.Students.Count.ToString()
-            ) }.ToArray();
-        }
+                record.Students.Count.ToString(),
+                record.IsCompleted.ToString(),
+                record.Id.ToString()
+            }).ToArray()
+        };
+
+        return Task.FromResult<object>(result);
     }
+}

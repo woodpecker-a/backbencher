@@ -1,7 +1,86 @@
-﻿
+﻿@model CourseCreateModel
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header pb-0">
+                <h5>Create a new Course</h5>
+            </div>
+            <form asp-action="Create" method="post" class="form theme-form">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3 row">
+                                <label asp-for="CourseName" class="col-sm-3 col-form-label">Course Name</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="CourseName" class="form-control" />
+                                    <span asp-validation-for="CourseName" class="text-danger"></span>
+                                </div>
+                            </div>
 
+                            <div class="mb-3 row">
+                                <label asp-for="CourseCode" class="col-sm-3 col-form-label">Course Code</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="CourseCode" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="CourseStartDate" class="col-sm-3 col-form-label">Start Date</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="CourseStartDate" class="form-control" type="date" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="CourseDuration" class="col-sm-3 col-form-label">Duration (days)</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="CourseDuration" class="form-control" type="number" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="OICId" class="col-sm-3 col-form-label">OIC</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="OICId" class="form-control" asp-items="Model.OICList"></select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="JICId" class="col-sm-3 col-form-label">JIC</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="JICId" class="form-control" asp-items="Model.JICList"></select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="NICId" class="col-sm-3 col-form-label">NIC</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="NICId" class="form-control" asp-items="Model.NICList"></select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="IsCompleted" class="col-sm-3 col-form-label">Is Completed</label>
+                                <div class="col-sm-9 pt-2">
+                                    <input asp-for="IsCompleted" type="checkbox" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end">
+                    <div class="col-sm-9 offset-sm-3">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <input class="btn btn-light" type="reset" value="Cancel" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

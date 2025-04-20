@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STCS.Infrastructure.DbContexts;
 
@@ -11,9 +12,10 @@ using STCS.Infrastructure.DbContexts;
 namespace STCS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250418143536_CourseUpdateMigration2")]
+    partial class CourseUpdateMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,10 +237,10 @@ namespace STCS.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -259,12 +261,14 @@ namespace STCS.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("SubjectId")
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -357,21 +361,19 @@ namespace STCS.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdInitial")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdNo")
+                    b.Property<int?>("IdNo")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rank")
@@ -390,7 +392,7 @@ namespace STCS.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ClassId")
+                    b.Property<Guid>("ClassId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CourseId")
@@ -403,8 +405,7 @@ namespace STCS.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId")
-                        .IsUnique()
-                        .HasFilter("[ClassId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("CourseId");
 
@@ -466,7 +467,9 @@ namespace STCS.Web.Migrations
                 {
                     b.HasOne("STCS.Infrastructure.Entities.Course", "Course")
                         .WithMany("Classes")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
                 });
@@ -476,7 +479,8 @@ namespace STCS.Web.Migrations
                     b.HasOne("STCS.Infrastructure.Entities.Subject", "Subject")
                         .WithMany("Files")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Subject");
                 });
@@ -520,7 +524,8 @@ namespace STCS.Web.Migrations
                     b.HasOne("STCS.Infrastructure.Entities.Course", "EnrolledCourse")
                         .WithMany("Students")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EnrolledCourse");
                 });
@@ -529,7 +534,9 @@ namespace STCS.Web.Migrations
                 {
                     b.HasOne("STCS.Infrastructure.Entities.Class", "Class")
                         .WithOne("Subject")
-                        .HasForeignKey("STCS.Infrastructure.Entities.Subject", "ClassId");
+                        .HasForeignKey("STCS.Infrastructure.Entities.Subject", "ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("STCS.Infrastructure.Entities.Course", null)
                         .WithMany("Subjects")
@@ -540,7 +547,8 @@ namespace STCS.Web.Migrations
 
             modelBuilder.Entity("STCS.Infrastructure.Entities.Class", b =>
                 {
-                    b.Navigation("Subject");
+                    b.Navigation("Subject")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("STCS.Infrastructure.Entities.Course", b =>

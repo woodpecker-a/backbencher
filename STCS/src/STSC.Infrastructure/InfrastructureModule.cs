@@ -48,6 +48,18 @@ public class InfrastructureModule : Module
         builder.RegisterType<CourseService>().As<ICourseService>()
             .InstancePerLifetimeScope();
 
+        builder.RegisterType<StudentRepository>().As<IStudentRepository>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<StudentService>().As<IStudentService>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<InstructorRepository>().As<IInstructorRepository>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<InstructorService>().As<IInstructorService>()
+            .InstancePerLifetimeScope();
+
         base.Load(builder);
     }
 }

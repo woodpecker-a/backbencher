@@ -2,6 +2,7 @@
 using STCS.Infrastructure.UnitOfWorks;
 using CourseBO = STCS.Infrastructure.BusinessModel.Course;
 using CourseEO = STCS.Infrastructure.Entities.Course;
+using InstructorEO = STCS.Infrastructure.Entities.Instructor;
 
 namespace STCS.Infrastructure.Services;
 

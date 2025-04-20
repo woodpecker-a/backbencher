@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace STCS.Web.Models;
 
-public class CourseEditModel : BaseModel
+public class StudentEditModel : BaseModel
 {
-    private ICourseService _courseService;
+    private IStudentService _StudentService;
     private IMapper _mapper;
 
     public Guid Id { get; set; }
@@ -17,36 +17,36 @@ public class CourseEditModel : BaseModel
     public double Fees { get; set; }
     public DateTime ClassStartDate { get; set; }
 
-    public CourseEditModel() : base()
+    public StudentEditModel() : base()
     {
 
     }
 
-    public CourseEditModel(ICourseService coursService, IMapper mapper)
+    public StudentEditModel(IStudentService coursService, IMapper mapper)
     {
-        _courseService = coursService;
+        _StudentService = coursService;
         _mapper = mapper;
     }
 
     internal void LoadData(Guid id)
     {
-        var course = _courseService.GetCourse(id);
-        if (course != null)
+        var Student = _StudentService.GetStudent(id);
+        if (Student != null)
         {
-            _mapper.Map(course, this);
+            _mapper.Map(Student, this);
         }
     }
 
-    internal void EditCourse()
+    internal void EditStudent()
     {
-        var course = _mapper.Map<Course>(this);
-        _courseService.EditCourse(course);
+        var Student = _mapper.Map<Student>(this);
+        _StudentService.EditStudent(Student);
     }
 
     public override void ResolveDependency(ILifetimeScope scope)
     {
         base.ResolveDependency(scope);
-        _courseService = _scope.Resolve<ICourseService>();
+        _StudentService = _scope.Resolve<IStudentService>();
         _mapper = _scope.Resolve<IMapper>();
     }
 }

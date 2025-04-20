@@ -1,20 +1,29 @@
 ﻿using Autofac;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using STCS.Infrastructure.BusinessModel;
 using STCS.Infrastructure.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace STCS.Web.Models;
-
 public class CourseCreateModel : BaseModel
 {
     [Required(ErrorMessage = "Title must be provided"),
         StringLength(200, ErrorMessage = "Title should be less than 200 characters")]
-    public string Title { get; set; }
-    [Required, Range(1000, 50000)]
-    public double Fees { get; set; }
-    [Required(ErrorMessage = "Valid date must be provided")]
-    public DateTime ClassStartDate { get; set; }
+    public string CourseName { get; set; }
+    public string CourseCode { get; set; }
+    public DateTime CourseStartDate { get; set; }
+    public int CourseDuration { get; set; }
+    public Guid OICId { get; set; }
+    public Instructor? OIC { get; set; }
+    public Guid JICId { get; set; }
+    public Instructor? JIC { get; set; }
+    public Guid NICId { get; set; }
+    public Instructor? NIC { get; set; }
+    public bool IsCompleted { get; set; }
+    public IEnumerable<SelectListItem>? OICList { get; set; }
+    public IEnumerable<SelectListItem>? JICList { get; set; }
+    public IEnumerable<SelectListItem>? NICList { get; set; }
 
     private ICourseService? _courseService;
     private IMapper _mapper;
