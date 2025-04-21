@@ -28,29 +28,30 @@ public class CourseController : Controller
 
     public IActionResult Index()
     {
-        // Resolve the CourseListModel using Autofac (dependency injection)
         var model = _scope.Resolve<CourseListModel>();
+        var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+
         return View(model);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> GetCourses(DataTablesAjaxRequestModel model)
+    [HttpGet]
+    public async Task<object> GetCourses()
     {
-        try
-        {
-            // Resolve the model from Autofac and fetch course data
-            var courseListModel = _scope.Resolve<CourseListModel>();
+        var model = _scope.Resolve<CourseListModel>();
 
-            // Use await for asynchronous method call
-            var data = await courseListModel.GetAllCourse(model);
+        var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+        model.ResolveDependency(_scope);
 
-            return Json(data);
-        }
-        catch (Exception ex)
-        {
-            // Handle errors gracefully and return status code 500 with error details
-            return StatusCode(500, ex.Message + "\n\n" + ex.StackTrace);
-        }
+        var data = await model.GetAllCourse(dataTablesModel);
+        return data;
+    }
+
+    [HttpPost]
+    public IActionResult DeleteCourse(Guid id)
+    {
+        var model = _scope.Resolve<CourseListModel>();
+        model.DeleteCourse(id);
+        return Ok();
     }
 
     public IActionResult Create()

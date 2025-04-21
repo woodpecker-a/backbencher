@@ -14,7 +14,7 @@ public class CourseRepository : Repository<Course, Guid>, ICourseRepository
     {
         (IList<Course> data, int total, int totalDisplay) results =
             GetDynamic(x => x.CourseName.Contains(searchText), orderby,
-            "CourseCode,CourseStartDate,OIC,JIC", pageIndex, pageSize, true);
+            "Students,OIC,JIC", pageIndex, pageSize, true);
 
         return results;
     }

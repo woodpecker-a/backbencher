@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using STCS.Infrastructure.BusinessModel;
 using STCS.Infrastructure.Services;
 using System.ComponentModel.DataAnnotations;
@@ -13,9 +14,20 @@ public class CourseEditModel : BaseModel
 
     public Guid Id { get; set; }
     [Required]
-    public string Title { get; set; }
-    public double Fees { get; set; }
-    public DateTime ClassStartDate { get; set; }
+    public string CourseName { get; set; }
+    public string CourseCode { get; set; }
+    public DateTime CourseStartDate { get; set; }
+    public int CourseDuration { get; set; }
+    public Guid OICId { get; set; }
+    public Instructor? OIC { get; set; }
+    public Guid JICId { get; set; }
+    public Instructor? JIC { get; set; }
+    public Guid NICId { get; set; }
+    public Instructor? NIC { get; set; }
+    public bool IsCompleted { get; set; }
+    public IEnumerable<SelectListItem>? OICList { get; set; }
+    public IEnumerable<SelectListItem>? JICList { get; set; }
+    public IEnumerable<SelectListItem>? NICList { get; set; }
 
     public CourseEditModel() : base()
     {

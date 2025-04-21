@@ -10,6 +10,8 @@ public class STCSProfile : Profile
     {
         CreateMap<Course, CourseCreateModel>()
             .ReverseMap();
+        CreateMap<Course, CourseEditModel>()
+            .ReverseMap();
         CreateMap<Instructor, Instructor>()
             .ReverseMap();
         CreateMap<Student, StudentCreateModel>()

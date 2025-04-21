@@ -18,13 +18,13 @@ public class CourseListModel : BaseModel
         _courseService.DeleteCourse(id);
     }
 
-    internal Task<object> GetAllCourse(DataTablesAjaxRequestModel requestModel)
+    internal async Task<object> GetAllCourse(DataTablesAjaxRequestModel requestModel)
     {
         var data = _courseService.GetCourses(
             requestModel.PageIndex,
             requestModel.PageSize,
             requestModel.SearchText,
-            requestModel.GetSortText(new[] { "CourseName", "CourseCode", "CourseStartDate", "OIC", "JIC" })
+            requestModel.GetSortText(new[] { "CourseName", "CourseCode", "CourseStartDate", "OIC", "JIC", "Students", "IsCompleted" })
         );
 
         var result = new
@@ -44,6 +44,6 @@ public class CourseListModel : BaseModel
             }).ToArray()
         };
 
-        return Task.FromResult<object>(result);
+        return result;
     }
 }
