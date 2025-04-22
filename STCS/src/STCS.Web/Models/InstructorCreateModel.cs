@@ -8,28 +8,31 @@ using System.ComponentModel.DataAnnotations;
 
 namespace STCS.Web.Models;
 
-public class StudentCreateModel : BaseModel
+public class InstructorCreateModel : BaseModel
 {
     [Required(ErrorMessage = "Title must be provided"),
         StringLength(200, ErrorMessage = "Title should be less than 200 characters")]
+    public Guid Id { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public IdInit IdInitial { get; set; }
-    public int? IdNo { get; set; }
+    public int IdNo { get; set; }
     public Rank Rank { get; set; }
-    public Guid CourseId { get; set; }
-    public Course? EnrolledCourse { get; set; }
+    public InstructorType? InstructorDesignation { get; set; }
+    public Guid? CourseId { get; set; }
     public IEnumerable<SelectListItem> Courses { get; set; }
+    public IEnumerable<SelectListItem> IdInitialList { get; set; }
+    public IEnumerable<SelectListItem> InstructorDesignationList { get; set; }
 
     private IStudentService? _StudentService;
     private IMapper _mapper;
 
-    public StudentCreateModel() : base()
+    public InstructorCreateModel() : base()
     {
 
     }
 
-    public StudentCreateModel(IStudentService coursService, IMapper mapper)
+    public InstructorCreateModel(IStudentService coursService, IMapper mapper)
     {
         _StudentService = coursService;
         _mapper = mapper;
@@ -44,8 +47,8 @@ public class StudentCreateModel : BaseModel
 
     internal async Task CreateStudent()
     {
-        Student student = _mapper.Map<Student>(this);
+        Instructor instructor = _mapper.Map<Instructor>(this);
 
-        _StudentService.CreateStudent(student);
+        _StudentService.CreateStudent(instructor);
     }
 }
