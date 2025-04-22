@@ -2,6 +2,9 @@
 using Autofac;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using STCS.Infrastructure.Models;
+using STCS.Infrastructure.Services;
 using STCS.Web.Models;
 using STCS.Web.Utilities;
 
@@ -12,19 +15,36 @@ public class InstructorController : Controller
 {
     private readonly ILifetimeScope _scope;
     private readonly ILogger<InstructorController> _logger;
-    public InstructorController(ILifetimeScope scope, ILogger<InstructorController> logger)
+    private readonly ICourseService _service;
+    public InstructorController(ILifetimeScope scope, ILogger<InstructorController> logger, ICourseService service)
     {
         _scope = scope;
         _logger = logger;
+        _service = service;
     }
     public IActionResult Index()
     {
+        var model = _scope.Resolve<InstructorListModel>();
+        var dataTableModel = new DataTablesAjaxRequestModel(Request);
+
         return View();
+    }
+
+    [HttpGet]
+    public async Task<object> GetInstructors()
+    {
+        var model = _scope.Resolve<InstructorListModel>();
+        var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+        model.ResolveDependency(_scope);
+
+        var data = await model.GetAllInstructor(dataTablesModel);
+        return data;
     }
 
     public IActionResult Create()
     {
         InstructorCreateModel model = _scope.Resolve<InstructorCreateModel>();
+        model.PopulateEnumLists();
         return View(model);
     }
 
@@ -37,7 +57,7 @@ public class InstructorController : Controller
 
             try
             {
-                await model.CreateStudent();
+                await model.CreateInstructor();
                 TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                 {
                     Message = "Successfully added a new Instructor.",

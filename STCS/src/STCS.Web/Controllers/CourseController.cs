@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using STCS.Infrastructure.BusinessModel;
 using STCS.Infrastructure.Models;
 using STCS.Infrastructure.Services;
 using STCS.Web.Models;
@@ -18,7 +17,7 @@ public class CourseController : Controller
     private readonly ILogger<CourseController> _logger;
     private readonly IInstructorService _service;
 
-    public CourseController(ILogger<CourseController> logger,IInstructorService service, ILifetimeScope scope)
+    public CourseController(ILogger<CourseController> logger, IInstructorService service, ILifetimeScope scope)
     {
         _scope = scope;
         _logger = logger;

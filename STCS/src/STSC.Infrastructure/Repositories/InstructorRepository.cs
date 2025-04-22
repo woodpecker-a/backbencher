@@ -14,7 +14,7 @@ public class InstructorRepository : Repository<Instructor, Guid>, IInstructorRep
     {
         (IList<Instructor> data, int total, int totalDisplay) results =
             GetDynamic(x => x.FirstName.Contains(searchText), orderby,
-            "FirstName,Rank,InstructorDesignation", pageIndex, pageSize, true);
+            "Course", pageIndex, pageSize, true);
 
         return results;
     }

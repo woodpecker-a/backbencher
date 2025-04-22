@@ -15,6 +15,8 @@ public class WebModule : Module
         builder.RegisterType<StudentCreateModel>().AsSelf();
         builder.RegisterType<StudentEditModel>().AsSelf();
         builder.RegisterType<StudentListModel>().AsSelf();
+        builder.RegisterType<InstructorCreateModel>().AsSelf();
+        builder.RegisterType<InstructorListModel>().AsSelf();
 
         base.Load(builder);
     }

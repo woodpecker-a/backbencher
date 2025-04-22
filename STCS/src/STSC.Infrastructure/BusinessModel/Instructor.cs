@@ -10,7 +10,7 @@ public class Instructor
     public IdInit IdInitial {  get; set; }
     public int IdNo { get; set; }
     public Rank Rank { get; set; }
-    public InstructorType? InstructorDesignation { get; set; }
+    public InstructorType? InstructorType { get; set; }
     public Guid? CourseId { get; set; }
     public Course? Course { get; set; }
 }

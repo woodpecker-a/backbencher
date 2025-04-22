@@ -1,0 +1,73 @@
+﻿@model InstructorCreateModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header pb-0">
+                <h5>Create a new Instructor</h5>
+            </div>
+            <form asp-action="Create" method="post" class="form theme-form">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3 row">
+                                <label asp-for="FirstName" class="col-sm-3 col-form-label">First Name</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="FirstName" class="form-control" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="LastName" class="col-sm-3 col-form-label">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="LastName" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="IdInitial" class="col-sm-3 col-form-label">Id Initial</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="IdInitial" class="form-control" asp-items="Model.IdInitialList"></select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="IdNo" class="col-sm-3 col-form-label">Id No:</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="IdNo" class="form-control" type="number" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="Rank" class="col-sm-3 col-form-label">Rank</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="Rank" class="form-control" asp-items="Model.RankList"></select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label asp-for="InstructorTypeList" class="col-sm-3 col-form-label">Instructor Designation</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="InstructorType" class="form-control" asp-items="Model.InstructorTypeList"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end">
+                    <div class="col-sm-9 offset-sm-3">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <input class="btn btn-light" type="reset" value="Cancel" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

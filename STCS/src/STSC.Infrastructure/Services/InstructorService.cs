@@ -16,16 +16,16 @@ public class InstructorService : IInstructorService
         _mapper = mapper;
     }
 
-    public void CreateInstructor(InstructorBO Instructor)
+    public void CreateInstructor(InstructorBO instructor)
     {
-        var count = _applicationUnitOfWork.Instructors.GetCount(x => x.FirstName == Instructor.FirstName);
+        var count = _applicationUnitOfWork.Instructors.GetCount(x => x.FirstName == instructor.FirstName);
 
         if (count > 0)
             throw new Exception("Instructor title already exists");
 
-        InstructorEO InstructorEntity = _mapper.Map<InstructorEO>(Instructor);
+        InstructorEO instructorEntity = _mapper.Map<InstructorEO>(instructor);
 
-        _applicationUnitOfWork.Instructors.Add(InstructorEntity);
+        _applicationUnitOfWork.Instructors.Add(instructorEntity);
         _applicationUnitOfWork.Save();
     }
 
@@ -35,12 +35,12 @@ public class InstructorService : IInstructorService
         _applicationUnitOfWork.Save();
     }
 
-    public void EditInstructor(InstructorBO Instructor)
+    public void EditInstructor(InstructorBO instructor)
     {
-        var InstructorEO = _applicationUnitOfWork.Instructors.GetById(Instructor.Id);
-        if (InstructorEO != null)
+        var instructorEO = _applicationUnitOfWork.Instructors.GetById(instructor.Id);
+        if (instructorEO != null)
         {
-            InstructorEO = _mapper.Map(Instructor, InstructorEO);
+            instructorEO = _mapper.Map(instructor, instructorEO);
             _applicationUnitOfWork.Save();
         }
         else
@@ -71,26 +71,30 @@ public class InstructorService : IInstructorService
         (IList<InstructorEO> data, int total, int totalDisplay) results = _applicationUnitOfWork
             .Instructors.GetInstructors(pageIndex, pageSize, searchText, orderby);
 
-        IList<InstructorBO> Instructors = new List<InstructorBO>();
-        foreach (InstructorEO InstructorEO in results.data)
+        IList<InstructorBO> instructor = new List<InstructorBO>();
+        foreach (InstructorEO instructorEO in results.data)
         {
-            Instructors.Add(_mapper.Map<InstructorBO>(InstructorEO));
+            if(instructorEO.Course == null)
+            {
+                instructorEO.Course.CourseName = "N/A";
+            }
+            instructor.Add(_mapper.Map<InstructorBO>(instructorEO));
         }
 
-        return (results.total, results.totalDisplay, Instructors);
+        return (results.total, results.totalDisplay, instructor);
     }
 
     public IList<InstructorBO> GetInstructors()
     {
-        var InstructorsEO = _applicationUnitOfWork.Instructors.GetAll();
+        var instructorsEO = _applicationUnitOfWork.Instructors.GetAll();
 
-        IList<InstructorBO> Instructors = new List<InstructorBO>();
+        IList<InstructorBO> instructors = new List<InstructorBO>();
 
-        foreach (InstructorEO InstructorEO in InstructorsEO)
+        foreach (InstructorEO instructor in instructorsEO)
         {
-            Instructors.Add(_mapper.Map<InstructorBO>(InstructorEO));
+            instructors.Add(_mapper.Map<InstructorBO>(instructor));
         }
 
-        return Instructors;
+        return instructors;
     }
 }
